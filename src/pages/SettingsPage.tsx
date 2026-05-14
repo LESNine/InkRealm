@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Plus, Trash2, Key, Globe, Bot, ShieldAlert } from 'lucide-react';
+import { Plus, Trash2, Key, Globe, Bot } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import type { ApiConfig } from '../types';
 
 export default function SettingsPage() {
-  const { apiConfigs, addApiConfig, updateApiConfig, deleteApiConfig, setApiConfigs, bypassFilter, setBypassFilter } = useStore();
+  const { apiConfigs, addApiConfig, updateApiConfig, deleteApiConfig, setApiConfigs } = useStore();
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<ApiConfig>>({
@@ -85,40 +85,6 @@ export default function SettingsPage() {
           <Plus className="w-4 h-4" />
           添加API
         </button>
-      </div>
-
-      {/* Bypass Filter Toggle */}
-      <div className="bg-white rounded-xl border border-ink-200 p-6 mb-6">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <ShieldAlert className="w-5 h-5 text-cinnabar" />
-              <h3 className="font-medium text-ink-800">绕过内容审核</h3>
-              {bypassFilter && (
-                <span className="px-2 py-0.5 bg-cinnabar/20 text-cinnabar text-xs rounded-full">
-                  已开启
-                </span>
-              )}
-            </div>
-            <p className="text-sm text-ink-500">
-              开启后，AI生成时会使用特殊的系统提示词，降低API内容审核的触发概率。
-              适用于需要描写暴力、血腥、恐怖等敏感场景的情况。
-              <span className="text-cinnabar">注意：这不会100%绕过审核，效果取决于API提供商的审核严格程度。</span>
-            </p>
-          </div>
-          <button
-            onClick={() => setBypassFilter(!bypassFilter)}
-            className={`relative w-12 h-6 rounded-full transition-colors ${
-              bypassFilter ? 'bg-cinnabar' : 'bg-ink-300'
-            }`}
-          >
-            <span
-              className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                bypassFilter ? 'translate-x-6' : 'translate-x-0'
-              }`}
-            />
-          </button>
-        </div>
       </div>
 
       {/* API List */}

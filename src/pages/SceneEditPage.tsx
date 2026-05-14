@@ -4,13 +4,13 @@ import { Send, Copy, CheckCircle, Sparkles, Eye, EyeOff, Feather } from 'lucide-
 import { useStore } from '../store/useStore';
 import { buildScenePrompt } from '../utils/promptBuilder';
 import { sendChatMessage } from '../utils/aiService';
-import { SENSORY_OPTIONS, JAILBREAK_SYSTEM_PROMPT } from '../utils/constants';
+import { SENSORY_OPTIONS } from '../utils/constants';
 import { showToast } from '../components/Toast';
 import type { Scene } from '../types';
 
 export default function SceneEditPage() {
   const { sceneId } = useParams<{ sceneId: string }>();
-  const { currentProject, updateProject, apiConfigs, writingStyles, currentStyleId, setCurrentStyleId, bypassFilter } = useStore();
+  const { currentProject, updateProject, apiConfigs, writingStyles, currentStyleId, setCurrentStyleId } = useStore();
   const [scene, setScene] = useState<Scene | null>(null);
   const [generating, setGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState('');
@@ -73,9 +73,7 @@ export default function SceneEditPage() {
     setGeneratedContent('');
 
     try {
-      const systemContent = bypassFilter
-        ? JAILBREAK_SYSTEM_PROMPT
-        : '你是一位资深网络小说作家，擅长写细节丰富、感官描写到位的场景。请严格按照用户的要求写作，不要跳过任何细节。';
+      const systemContent = '你是一位资深网络小说作家，擅长写细节丰富、感官描写到位的场景。请严格按照用户的要求写作，不要跳过任何细节。';
 
       const content = await sendChatMessage(
         defaultApi,

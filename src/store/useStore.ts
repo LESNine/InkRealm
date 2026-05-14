@@ -11,7 +11,6 @@ interface AppState {
   agentServer: AgentServerStatus;
   writingStyles: WritingStyle[];
   currentStyleId: string | null;
-  bypassFilter: boolean;
 
   setProjects: (projects: Project[]) => void;
   setCurrentProject: (project: Project | null) => void;
@@ -34,8 +33,6 @@ interface AppState {
   updateWritingStyle: (style: WritingStyle) => void;
   deleteWritingStyle: (id: string) => void;
   setCurrentStyleId: (id: string | null) => void;
-
-  setBypassFilter: (enabled: boolean) => void;
 }
 
 const loadApiConfigs = (): ApiConfig[] => {
@@ -65,19 +62,6 @@ const saveWritingStyles = (styles: WritingStyle[]) => {
   localStorage.setItem('inkrealm_styles', JSON.stringify(styles));
 };
 
-const loadBypassFilter = (): boolean => {
-  try {
-    const stored = localStorage.getItem('inkrealm_bypass');
-    return stored ? JSON.parse(stored) : false;
-  } catch {
-    return false;
-  }
-};
-
-const saveBypassFilter = (enabled: boolean) => {
-  localStorage.setItem('inkrealm_bypass', JSON.stringify(enabled));
-};
-
 export const useStore = create<AppState>((set, get) => ({
   projects: [],
   currentProject: null,
@@ -91,7 +75,6 @@ export const useStore = create<AppState>((set, get) => ({
   },
   writingStyles: loadWritingStyles(),
   currentStyleId: null,
-  bypassFilter: loadBypassFilter(),
 
   setProjects: (projects) => set({ projects }),
   setCurrentProject: (project) => set({ currentProject: project }),
@@ -155,9 +138,4 @@ export const useStore = create<AppState>((set, get) => ({
     set({ writingStyles: styles, currentStyleId: get().currentStyleId === id ? null : get().currentStyleId });
   },
   setCurrentStyleId: (id) => set({ currentStyleId: id }),
-
-  setBypassFilter: (enabled) => {
-    saveBypassFilter(enabled);
-    set({ bypassFilter: enabled });
-  },
 }));
