@@ -76,31 +76,34 @@
 | 浏览器 | Chrome 86+ / Edge 86+（需 File System Access API） |
 | 磁盘空间 | 约 200MB（含 node_modules） |
 
-### 方式一：完整版（解压即用）
+### 方式一：下载轻量包
 
-1. 下载 `墨境_InkRealm_v1.2.5_完整版.zip`
-2. 解压到任意目录
-3. 双击 `InkRealm.exe`
-4. 浏览器自动打开 http://localhost:5173
-5. 按 **Q** 键停止服务并退出
+前往 [Releases](https://github.com/LESNine/InkRealm/releases) 下载最新版 zip，解压后执行：
+
+```bash
+npm install
+npm run build
+```
+
+然后双击 `InkRealm.exe` 或运行 `npm start` 启动。
 
 ### 方式二：从源码构建
 
 ```bash
-# 克隆仓库
-git clone https://github.com/LESNine/inkrealm.git
-cd inkrealm
+git clone https://github.com/LESNine/InkRealm.git
+cd InkRealm
 
-# 安装依赖
 npm install
-
-# 开发模式（热更新）
-npm run dev
-
-# 或构建后运行
 npm run build
-npm start
+
+# 启动（二选一）
+npm start          # 命令行启动
+InkRealm.exe       # 双击启动器（按 Q 停止服务）
 ```
+
+启动后浏览器自动打开 http://localhost:5173
+
+> 💡 开发模式可使用 `npm run dev` 启用热更新
 
 ---
 
